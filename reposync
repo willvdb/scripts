@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+import sys, getopt
+from subprocess import run, PIPE as pipe
+from terminalformat import tf
+from os import path, chdir, listdir
+
+def main(argv):
+	help_msg = "reposync -p <repo prefix> -b <branch name; default: dev> -s <source dir; default: ~/git/source>"
+	branch = "dev"
+	prefix = ""
+	source = path.abspath( path.expanduser("~/git/source") )
+
+	try:
+		opts, args = getopt.getopt(argv, "p:b:s:")
+	except getopt.GetoptError:
+		print(help_msg)
+		sys.exit(2)
+
+	for opt, arg in opts:
+		if opt in ("-p"):
+			prefix = arg
+		elif opt in ("-b"):
+			branch = arg
+		elif opt in ("-s"):
+			source = path.abspath( path.expanduser(arg) )
+
+	if not path.isdir(source):
+		print(tf.error('ERROR: directory "{0}" does not exist'.format(source)))
+		exit(2)
+
+	repos = filter(lambda dir: prefix in dir, listdir(source))
+
+	for repo in repos:
+		dirpath = '{base}/{repo}'.format(base = source, repo = repo)
+		commands = [
+			# 'echo "this was not a triumph!" 1>&2 && exit 1',
+			'git fetch',
+			'git checkout {0}'.format(branch),
+			'git pull'
+		]
+
+		chdir(dirpath)
+		print( '\nUpdating {0} on branch {1}'.format( tf.bold.info(repo), tf.bold.info(branch) ) )
+
+		for cmd in commands:
+			p = run(cmd, shell=True, universal_newlines=True, stdout=pipe, stderr=pipe)
+
+			if p.returncode == 0:
+				print( '  {2}{0}\n{1}'.format(
+					tf.success(p.args), p.stdout, tf.bold.success('\u2713 $')
+				))
+			else:
+				print( '  {2}{0}\n{1}'.format(
+					tf.error(p.args), p.stderr, tf.bold.error('\u2757 $')
+				))
+
+if __name__ == '__main__':
+	main(sys.argv[1:])

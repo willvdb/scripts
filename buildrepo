@@ -1,0 +1,213 @@
+#!/usr/bin/env python3
+import sys, os, getopt, getpass, json, subprocess
+from terminalformat import tf as tw
+from distutils import dir_util
+from subprocess import call
+
+# define color shortcuts
+class TerminalWriter:
+  emphasis = '\033[95m'
+  INFO = '\033[94m'
+  WARNING = '\033[93m'
+  SUCCESS = '\033[92m'
+  FAIL = '\033[91m'
+  ENDC = '\033[0m'
+  BOLD = '\033[1m'
+  UNDERLINE = '\033[4m'
+
+  def emphasis(self, string):
+    print(self.emphasis + string + self.ENDC)
+  def info(self, string):
+    print(self.INFO + string + self.ENDC)
+  def warning(self, string):
+    print(self.WARNING + string + self.ENDC)
+  def success(self, string):
+    print(self.SUCCESS + string + self.ENDC)
+  def fail(self, string):
+    print(self.FAIL + string + self.ENDC)
+
+
+# start main
+
+def main():
+  # define program defaults
+  VERBOSE = False
+  CONFIG_PATHS = (
+    "~/config.json", "~/git/config.json",
+    "~/buildsettings", "~/buildsettings.json",
+    "~/git/buildsettings", "~/git/buildsettings.json"
+  )
+  WORKING_DIRECTORY = False
+  REPO = False
+  SUBS = (
+    "", "cache", "config", "session", "core"
+  )
+  BRANCH = "master"
+
+  # set up option parser
+  try:
+    opts, args, = getopt.getopt(sys.argv[1:], "c:b:ho:p:vw:", [\
+      "config","core branch","help","ouput directory","path","verbose","working directory"\
+    ])
+  except getopt.GetoptError as err:
+    print(str(err))
+    sys.exit(2)
+  else:
+    if len(args) > 0:
+      REPO = str(args[0])
+    else:
+      tw.error(
+        "No repository name provided"
+      )
+      sys.exit(0)
+
+  for o, a in opts:
+    if o in ("-c", "--config"):
+      configFile = a
+    elif o in ("-b", "--branch"):
+      BRANCH = a
+    elif o in ("-h", "--help"):
+      usage()
+      sys.exit(1)
+    elif o in (\
+        "-p", "--path", "-o", "--output-path", "-w", "--working-directory"\
+      ):
+      outPath = a
+    elif o == "-v":
+      verbose = True
+    else:
+      assert False, "unhandled option"
+
+  # try to load host config information from a couple of common places
+  try:
+    configFile
+  except:
+    for path in CONFIG_PATHS:
+      path = os.path.expanduser(path)
+      if os.path.isfile(path):
+        try:
+          configFile = open(path)
+        except:
+          tw.error(
+            "You didn't have a config file in any of the places I expected."
+          )
+          tw.info(
+            "Please create one at\n    " +\
+            "/home/<user>/config[.json]\nor\n    " +\
+            "/home/<user>/git/config[.json]"
+          )
+          tw.info(
+            "Alternatively, specify one with the -c option:\n    " +\
+            "buildrepo -c <config path>"
+          )
+          sys.exit(1)
+        else:
+          break
+  try:
+    config = json.load(configFile)
+  except:
+    tw.error(
+      "I wasn't able to load a valid configuration from " +
+      tw.emphasis( path )
+    )
+    tw.error("Unexpected error:" + str(sys.exc_info()))
+    raise
+    sys.exit(2)
+  else:
+    tw.success(
+      "Repository configurations loaded from " + tw.emphasis( path )
+    )
+
+  # verify working directory
+  try:
+    WORKING_DIRECTORY = os.path.expanduser(config['working_directory'])
+  except:
+    tw.error("Config file did not specify a working directory.")
+
+  # verify repo
+  try:
+    config['host'] = config['boxes'][REPO]['config']
+  except:
+    tw.error("No configuration present for " + tw.emphasis( REPO ))
+    sys.exit(1)
+  else:
+    tw.success("Settings found for " + tw.emphasis( REPO ))
+    repo = config['host']
+
+  tw.info("Constructing build directory...")
+
+  for sub in SUBS:
+    try:
+      directory = "/build/" + REPO + "/" + sub
+      os.makedirs(WORKING_DIRECTORY + directory, mode=0o755, exist_ok=True)
+      tw.emphasis("\t" + '.' + directory)
+    except:
+      tw.error("Unexpected error:" + str(sys.exc_info()))
+      raise
+      sys.exit(2)
+
+  if BRANCH != "master":
+    tw.info("Switching core to \"" + BRANCH + "\" branch")
+    os.system(
+      "cd " + WORKING_DIRECTORY + "/source/core && " +
+      "git fetch > /dev/null && " +
+      "git checkout origin/" + BRANCH + " > /dev/null"
+    )
+
+  try:
+    tw.info("Cloning core...")
+    dir_util.copy_tree(
+      WORKING_DIRECTORY + "/source/core",
+      WORKING_DIRECTORY + "/build/" + REPO + "/core"
+    )
+    os.chmod(WORKING_DIRECTORY + "/build/" + REPO + "/core/routing.php", 0o640)
+  except:
+    tw.error("Unexpected error:" + str(sys.exc_info()))
+    raise
+    sys.exit(2)
+  else:
+    tw.success("Clone complete.")
+
+  try:
+    filepath = WORKING_DIRECTORY + "/build/" + REPO + "/.htaccess"
+    tw.info(
+      "Writing .htaccess..."
+    )
+    open(filepath, "w").write(
+      "RewriteEngine On\n" +
+      "#RewriteCond %{SERVER_PORT} !^443$\n" +
+      "#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=302]\n" +
+      "RewriteRule .* core/routing.php\n"
+    )
+    try:
+      open(filepath, "r")
+    except:
+      tw.error(
+        ".htaccess could not be written"
+      )
+      sys.exit(1)
+    else:
+      tw.success("Write complete.")
+  except:
+    tw.error("Unexpected error:" + str(sys.exc_info()))
+    raise
+    sys.exit(2)
+
+  try:
+    tw.info("Fetching remote config...")
+    os.system(
+      "wget -m -nd -P " + WORKING_DIRECTORY + "/build/" + REPO + "/config/ " +
+      "ftp://" + repo["user"] + "@" + repo["host"] + "/public_html/config "+
+      "--password '" + repo["pass"] + "' >/dev/null 2>&1"
+    )
+  except:
+    tw.error("Unexpected error:" + str(sys.exc_info()))
+    raise
+    sys.exit(2)
+  else:
+    tw.success("Configuration received")
+
+# end main
+
+if __name__ == "__main__":
+  main()
