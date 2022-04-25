@@ -46,5 +46,5 @@ $ npm run test:cov
 
 ## Support
 
-- Please contact [Will VanDenBerghe](mailto:wvandenberghe@grandeurpeakglobal.com)
+- Please contact [Will VanDenBerghe](mailto:wvandenberghe@grandeurpeakglobal.com) for any questions or support.
 
