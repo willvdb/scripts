@@ -1,4 +1,4 @@
-# ~/.scripts/.bashrc: executed by bash for non-login shells.
+# ~/scripts/.bashrc: executed by bash for non-login shells.
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -13,7 +13,7 @@ shopt -s histappend
 # Create the link for the imported bashrc
 if ! [ -L ~/.bashrc ]; then
   rm ~/.bashrc
-  ln -s ~/.scripts/.bashrc ~/.bashrc
+  ln -s ~/scripts/.bashrc ~/.bashrc
 fi
 
 # enable bash completion in interactive shells
@@ -44,24 +44,24 @@ load() {
 load /etc/bashrc
 
 # load highlighter
-load ~/.scripts/h.sh
+load ~/scripts/h.sh
 
 # Load aliases
-load ~/.scripts/aliases.sh
+load ~/scripts/aliases.sh
 
 # Load functions
-load ~/.scripts/functions.sh
+load ~/scripts/functions.sh
 
 # Load color settings
-load ~/.scripts/colors.sh
+load ~/scripts/colors.sh
 
 # Load prompt
-load ~/.scripts/prompt.sh
+load ~/scripts/prompt.sh
 
-# Add .scripts to path
+# Add scripts to path
 PATH=$PATH':/sbin'
-PATH=$PATH':~/.scripts'
-PATH=$PATH':~/.scripts/binaries'
+PATH=$PATH':~/scripts'
+PATH=$PATH':~/scripts/binaries'
 PATH=$PATH':~/.ip-scripts'
 PATH=$PATH':/usr/local/nvm/v5.4.1/bin'
 
