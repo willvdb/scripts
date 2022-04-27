@@ -18,9 +18,6 @@ mcd () {
 }
 
 #git aliases
-gitclone(){
-	git clone git@github.com:ipartnr8/$1
-}
 alias s='git status'
 alias b='git branch'
 alias a='git add .'
@@ -40,9 +37,9 @@ c(){
 	git commit -m "$1"
 }
 
-#trapeze aliases
-alias gui='cd ~/source/trapeze-gui'
-alias payments='cd ~/git/source/circus-trapeze-payments-gui'
+#gp aliases
+alias toolkit='cd ~/code/toolkit-api'
+alias dev="toolkit && npm run dev"
 killonport(){
 	fuser -k -n tcp $1
 }
