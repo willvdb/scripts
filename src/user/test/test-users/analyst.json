@@ -1,0 +1,14 @@
+{
+    "id": 0,
+    "name": "Robert",
+    "nickname": "bob",
+    "roles": [
+        {
+            "id": 0,
+            "name": "analyst",
+            "permissions": [
+                "COMPANY_VIEW"
+            ]
+        }
+    ]
+}
