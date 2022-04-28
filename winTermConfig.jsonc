@@ -3,13 +3,6 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [
         {
-            "command": {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
-        },
-        {
             "command": "unbound",
             "keys": "ctrl+tab"
         },
@@ -28,6 +21,13 @@
         {
             "command": "unbound",
             "keys": "ctrl+left"
+        },
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
         },
         {
             "command": {
@@ -78,18 +78,6 @@
         },
         {
             "command": {
-                "action": "prevTab"
-            },
-            "keys": "ctrl+shift+left"
-        },
-        {
-            "command": {
-                "action": "prevTab"
-            },
-            "keys": "ctrl+shift+j"
-        },
-        {
-            "command": {
                 "action": "moveFocus",
                 "direction": "down"
             },
@@ -101,6 +89,18 @@
                 "direction": "down"
             },
             "keys": "alt+n"
+        },
+        {
+            "command": {
+                "action": "prevTab"
+            },
+            "keys": "ctrl+shift+left"
+        },
+        {
+            "command": {
+                "action": "prevTab"
+            },
+            "keys": "ctrl+shift+j"
         },
         {
             "command": {
@@ -142,9 +142,11 @@
                 "name": "Command Prompt"
             },
             {
+                "colorScheme": "test",
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
+                "opacity": 75,
                 "source": "Windows.Terminal.Wsl"
             },
             {
@@ -173,7 +175,7 @@
             "foreground": "#C19C00",
             "green": "#13A10E",
             "name": "Campbell",
-            "purple": "#881798",
+            "purple": "#C792EA",
             "red": "#C50F1F",
             "selectionBackground": "#C19C00",
             "white": "#CCCCCC",
@@ -362,6 +364,29 @@
             "selectionBackground": "#FFFFFF",
             "white": "#C0C0C0",
             "yellow": "#808000"
+        },
+        {
+            "background": "#000000",
+            "black": "#0C0C0C",
+            "blue": "#7F78EA",
+            "brightBlack": "#767676",
+            "brightBlue": "#3B78FF",
+            "brightCyan": "#61D6D6",
+            "brightGreen": "#16C60C",
+            "brightPurple": "#B4009E",
+            "brightRed": "#E74856",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#F9F1A5",
+            "cursorColor": "#FFF960",
+            "cyan": "#53D6CA",
+            "foreground": "#FFF263",
+            "green": "#A1EA8B",
+            "name": "test",
+            "purple": "#C792EA",
+            "red": "#EA6464",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#EAD780"
         }
     ],
     "startOnUserLogin": true,
