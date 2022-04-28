@@ -1,14 +1,6 @@
 export enum Permission {
-    User,
-    Workflow
-}
-
-enum User {
-    view = "VIEW",
-    edit = "EDIT"
-}
-
-enum Workflow {
-    view = "VIEW",
-    edit = "EDIT"
+    user_view = "USER_VIEW",
+    user_edit = "USER_EDIT",
+    company_view = "COMPANY_VIEW",
+    company_edit = "COMPANY_EDIT"
 }
