@@ -1,11 +1,13 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "actions": [
         {
-            "command": "unbound",
-            "keys": "ctrl+shift+t"
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
         },
         {
             "command": "unbound",
@@ -16,19 +18,22 @@
             "keys": "ctrl+shift+tab"
         },
         {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
+            "command": "unbound",
+            "keys": "ctrl+t"
         },
         {
-            "command": 
-            {
+            "command": "unbound",
+            "keys": "ctrl+right"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+left"
+        },
+        {
+            "command": {
                 "action": "newTab"
             },
-            "keys": "ctrl+t"
+            "keys": "ctrl+shift+t"
         },
         {
             "command": "paste",
@@ -39,22 +44,25 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "globalSummon"
             },
             "keys": "f1"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "nextTab"
             },
-            "keys": "ctrl+right"
+            "keys": "ctrl+shift+right"
         },
         {
-            "command": 
-            {
+            "command": {
+                "action": "nextTab"
+            },
+            "keys": "ctrl+shift+k"
+        },
+        {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -62,28 +70,30 @@
             "keys": "alt+shift+d"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "prevTab"
             },
-            "keys": "ctrl+left"
+            "keys": "ctrl+shift+left"
+        },
+        {
+            "command": {
+                "action": "prevTab"
+            },
+            "keys": "ctrl+shift+j"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
     "launchMode": "maximized",
-    "profiles": 
-    {
-        "defaults": 
-        {
+    "profiles": {
+        "defaults": {
             "experimental.retroTerminalEffect": false,
             "opacity": 50,
             "startingDirectory": "\\\\wsl$\\Ubuntu\\home\\will",
             "useAcrylic": true
         },
-        "list": 
-        [
+        "list": [
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -110,8 +120,7 @@
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
