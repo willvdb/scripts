@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Permission } from 'src/models/permission';
-import { Role } from 'src/models/role';
-import { User } from 'src/models/user';
+import { Permission } from '../models/permission';
+import { Role } from '../models/role';
+import { User } from '../models/user';
 
 @Injectable()
 export class UserService {

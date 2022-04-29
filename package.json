@@ -1,8 +1,8 @@
 {
   "name": "toolkit-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API for Grandeur Peak Toolkit",
+  "author": "Will VanDenBerghe",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
