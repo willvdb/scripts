@@ -30,6 +30,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+The app should have an automatic debug profile detected in vscode. If you want to debug run the auto configurated node js scripts and choose `start:debug`
 
 ## Test
 
