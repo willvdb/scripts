@@ -1,0 +1,23 @@
+{
+    "id": 0,
+    "name": "Alan",
+    "nickname": "al",
+    "roles": [
+        {
+            "id": 0,
+            "name": "analyst",
+            "permissions": [
+                "COMPANY_VIEW"
+            ]
+        }, {
+            "id": 1,
+            "name": "admin",
+            "permissions": [
+                "COMPANY_VIEW",
+                "COMPANY_EDIT",
+                "USER_VIEW",
+                "USER_EDIT"
+            ]
+        }
+    ]
+}
