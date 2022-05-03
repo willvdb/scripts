@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "nickname" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "roles" "Role"[],
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -31,4 +31,4 @@ CREATE UNIQUE INDEX "User_name_key" ON "User"("name");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_nickname_key" ON "User"("nickname");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");

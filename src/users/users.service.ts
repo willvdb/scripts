@@ -3,7 +3,7 @@ import { Prisma, User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
-export class UserService {
+export class UsersService {
     constructor(private prisma: PrismaService) { }
 
     async getUser(
@@ -29,7 +29,7 @@ export class UserService {
     async createUser(data: Prisma.UserCreateInput): Promise<User> {
         return this.prisma.user.create({
             data,
-        });
+        })
     }
 
     async updateUser(params: updateUserParams): Promise<User> {

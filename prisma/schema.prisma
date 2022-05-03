@@ -1,5 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Using @vegardit's prisma dto generator (that's what the nestjsDto and annotations are). docs here: https://github.com/vegardit/prisma-generator-nestjs-dto
 
 datasource db {
   provider = "postgres"
@@ -10,16 +11,34 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestjsDto {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../src/common/dto"
+  outputToNestJsResourceStructure = "false"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "false"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  entityPrefix                    = ""
+  entitySuffix                    = ""
+  fileNamingStyle                 = "camel"
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String @unique
-  email    String @unique
-  nickname String @unique
-  roles    Role[]
+  id          Int      @id @default(autoincrement())
+  ///@DtoReadOnly
+  createdAt   DateTime @default(now())
+  name        String
+  email       String   @unique
+  username    String   @unique
+  roles       Role[]
+  preferences Json     @default("{}")
 }
 
 model RolePermission {
   id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
   role       Role
   permission Permission
 }
@@ -39,4 +58,8 @@ enum Permission {
   COMPANY_READ
   COMPANY_UPDATE
   COMPANY_DELETE
+  ROLE_PERMISSION_CREATE
+  ROLE_PERMISSION_READ
+  ROLE_PERMISSION_UPDATE
+  ROLE_PERMISSION_DELETE
 }

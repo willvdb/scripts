@@ -1,7 +1,7 @@
 {
     "id": 0,
     "name": "Robert",
-    "nickname": "bob",
+    "username": "bob",
     "roles": [
         {
             "id": 0,
