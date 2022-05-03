@@ -1,5 +1,5 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
-import { Permission } from '@prisma/client';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Permission, User } from '@prisma/client';
 import { PermissionGuard } from '../permission/permission.guard';
 import { RequiredPermissions } from '../permission/required-permissions.decorator';
 import { UserService } from './user.service';
@@ -17,7 +17,17 @@ export class UserController {
 
     }
 
-    private helloWorld(twenty: number) {
-        return twenty + 5;
+    @Post()
+    // @RequiredPermissions(Permission.USER_CREATE)
+    async createuser(@Body() body: User): Promise<User> {
+
+        console.log(body);
+        const {name, email, nickname} = body;
+
+        return this.userService.createUser({
+            name,
+            email,
+            nickname
+        });
     }
 }
