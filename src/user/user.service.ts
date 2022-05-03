@@ -1,26 +1,62 @@
 import { Injectable } from '@nestjs/common';
-import { Permission } from '../models/permission';
-import { Role } from '../models/role';
-import { User } from '../models/user';
+import { Prisma, User } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
+    constructor(private prisma: PrismaService) { }
 
-    test(): string {
-        let user = new User();
-        user.id = 0;
-        user.name = "Robert";
-        user.nickname = "Bob";
-        let role = new Role();
-        role.id = 0;
-        role.name = "analyst";
-        role.permissions = [
-            Permission.company_view,
-            Permission.company_edit
-        ];
-        user.roles = [
-            role
-        ]
-        return JSON.stringify(user);
+    async getUser(
+        userWhereUniqueueInput: Prisma.UserWhereUniqueInput
+    ): Promise<User | null> {
+        return this.prisma.user.findUnique({
+            where: userWhereUniqueueInput
+        });
     }
+
+
+    async getUsers(params: getUsersParams): Promise<User[]> {
+        const { skip, take, cursor, where, orderBy } = params;
+        return this.prisma.user.findMany({
+            skip,
+            take,
+            cursor,
+            where,
+            orderBy
+        })
+    }
+
+    async createUser(data: Prisma.UserCreateInput): Promise<User> {
+        return this.prisma.user.create({
+            data,
+        });
+    }
+
+    async updateUser(params: updateUserParams): Promise<User> {
+        const { where, data } = params;
+        return this.prisma.user.update({
+            data,
+            where,
+        });
+    }
+
+    async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+        return this.prisma.user.delete({
+            where,
+        });
+    }
+
+}
+
+class getUsersParams {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.UserWhereUniqueInput;
+    where?: Prisma.UserWhereInput;
+    orderBy?: Prisma.UserOrderByWithRelationInput;
+}
+
+class updateUserParams {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUpdateInput;
 }

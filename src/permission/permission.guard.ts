@@ -1,9 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Permission, Role, User } from '@prisma/client';
 import { Observable } from 'rxjs';
-import { Permission } from 'src/models/permission';
-import { Role } from 'src/models/role';
-import { User } from '../models/user';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
@@ -33,9 +31,14 @@ export class PermissionGuard implements CanActivate {
 
 
   private roleHasPermission(roles: Role[], requiredPermissions: Permission[]): boolean {
+    const rolePermissions: Permission[] = roles.flatMap(role => this.getRolePermissions(role));
     // at least one role includes every required permission
     return roles.some(role =>
       requiredPermissions.every(requiredPermission =>
-        role.permissions.includes(requiredPermission)));
+        rolePermissions.includes(requiredPermission)));
+  }
+
+  private getRolePermissions(role: Role) {
+    return [];
   }
 }

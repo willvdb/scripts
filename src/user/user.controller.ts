@@ -1,5 +1,5 @@
-import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
-import { Permission } from '../models/permission';
+import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Permission } from '@prisma/client';
 import { PermissionGuard } from '../permission/permission.guard';
 import { RequiredPermissions } from '../permission/required-permissions.decorator';
 import { UserService } from './user.service';
@@ -11,9 +11,9 @@ export class UserController {
     constructor(private userService: UserService) { }
 
     @Post('test')
-    @RequiredPermissions(Permission.company_edit, Permission.company_view)
+    @RequiredPermissions(Permission.COMPANY_UPDATE, Permission.COMPANY_READ)
     async test() {
-        return this.userService.test();
+        return null;
 
     }
 
