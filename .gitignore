@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# auto generated dtos (Move the ones we actually want into appropriate folders)
+/src/common/dto/generated
+
 # Logs
 logs
 *.log

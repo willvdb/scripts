@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Permission, Role, User } from '@prisma/client';
 import { Observable } from 'rxjs';
@@ -18,14 +18,14 @@ export class PermissionGuard implements CanActivate {
     } else {
 
       const request = context.switchToHttp().getRequest();
-      const user: User = JSON.parse(request.headers['user']); //simulate the user from headers for now
-      const hasPermission = this.roleHasPermission(user.roles, requiredPermissions);
+      const username: string = request.headers['username']; //simulate the user from headers for now
+      // const hasPermission = this.roleHasPermission(user.roles, requiredPermissions);
 
-      if (!hasPermission) {
+      if (username !== 'jim') {
         throw new ForbiddenException(null, "You do not have sufficient permissions to access this resource")
       }
 
-      return hasPermission;
+      return true;//hasPermission;
     }
   }
 

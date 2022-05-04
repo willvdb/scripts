@@ -4,6 +4,8 @@ import { PermissionGuard } from '../permission/permission.guard';
 import { User } from '../common/dto/user/user.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from '../common/dto/user/create-user.dto';
+import { RequiredPermissions } from '../permission/required-permissions.decorator';
+import { Permission } from '@prisma/client';
 
 @Controller('users')
 @UseGuards(PermissionGuard)
@@ -12,6 +14,7 @@ export class UsersController {
     constructor(private userService: UsersService) { }
 
     @Get(":username")
+    @RequiredPermissions(Permission.USER_READ)
     @ApiTags("users")
     @ApiParam({
         name: "username",
