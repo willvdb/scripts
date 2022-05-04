@@ -144,6 +144,9 @@ load ~/scripts/colors.sh
 # Load prompt
 load ~/scripts/prompt.sh
 
+# Load title
+load ~/scripts/title.sh
+
 # Add scripts to path
 PATH=$PATH':/sbin'
 PATH=$PATH':~/scripts'
