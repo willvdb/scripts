@@ -4,12 +4,6 @@ alias la='ls -A'
 alias l='ls -CF'
 
 #basic aliases
-alias source='cd ~/git/source'
-alias modskin='cd ~/git/source/modular_skin'
-alias bankfour='cd ~/git/source/bank_fouritem'
-alias bankfourmuscle='cd ~/git/source/bank_4muscle'
-alias createbank='node ~/scripts/bank/bank'
-alias codechallenges='cd ~/git/source/code-challenges'
 alias myip='curl http://ipecho.net/plain; echo'
 alias r='reset'
 mcd () {
@@ -38,8 +32,12 @@ c(){
 }
 
 #gp aliases
-alias toolkit='cd ~/code/toolkit-api'
-alias dev="toolkit && npm run dev"
+alias api='cd ~/code/toolkit-api'
+alias gui='cd ~/code/toolkit-ui'
+alias apidev="api && npm run dev"
+alias guidev="gui && npm run serve"
 killonport(){
 	fuser -k -n tcp $1
 }
+
+alias okta="flatpak run com.okta.developer.CLI"
