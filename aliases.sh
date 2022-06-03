@@ -34,6 +34,7 @@ c(){
 #gp aliases
 alias api='cd ~/code/toolkit-api'
 alias gui='cd ~/code/toolkit-ui'
+alias func='cd ~/code/toolkit-functions'
 alias apidev="api && npm run dev"
 alias guidev="gui && npm run serve"
 killonport(){
