@@ -1,6 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+
 
 # If not running interactively, don't do anything
 case $- in
@@ -14,10 +12,11 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Create the link for the imported bashrc
+if ! [ -L ~/.bashrc ]; then
+  rm ~/.bashrc
+  ln -s ~/scripts/.bashrc ~/.bashrc
+fi
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -143,7 +142,6 @@ load ~/scripts/colors.sh
 
 # Load prompt
 load ~/scripts/prompt.sh
-
 # Load title
 load ~/scripts/title.sh
 
