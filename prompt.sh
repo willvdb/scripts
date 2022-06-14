@@ -4,7 +4,7 @@ build_prompt() {
 		if git branch &> /dev/null; then
 			local BRANCH_NAME=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
 			if ! [ -z $BRANCH_NAME ]; then
-				echo -en "$BRANCH$BRANCH_NAME"
+				echo -en "$BRANCH_NAME"
 			fi
 		fi
 	}
@@ -42,11 +42,11 @@ build_prompt() {
 	## Segment Config ##
 	local LAST_NUMBER=$(ansi --yellow "\#")
 	local LAST_OUTCOME=""
-	local USER=$(ansi --green "$PROFILE$USER")
-	local DIR=$(ansi --blue "$DIRECTORY\w")
+	local USER=$(ansi --green "$USER")
+	local DIR=$(ansi --blue "\w")
 	local GIT_BRANCH=$(ansi --magenta $(git_branch))
 	local GIT_CHANGES=$(ansi --yellow $(git_changes))
-	local PROMPT=$(echo -e "\n$ARROW ")
+	local PROMPT=$(echo -e "\n>")
 
 	## Determine Command Outcome ##
 	if [[ $? == 0 ]]; then

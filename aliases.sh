@@ -4,12 +4,6 @@ alias la='ls -A'
 alias l='ls -CF'
 
 #basic aliases
-alias source='cd ~/git/source'
-alias modskin='cd ~/git/source/modular_skin'
-alias bankfour='cd ~/git/source/bank_fouritem'
-alias bankfourmuscle='cd ~/git/source/bank_4muscle'
-alias createbank='node ~/scripts/bank/bank'
-alias codechallenges='cd ~/git/source/code-challenges'
 alias myip='curl http://ipecho.net/plain; echo'
 alias r='reset'
 mcd () {
@@ -18,9 +12,6 @@ mcd () {
 }
 
 #git aliases
-gitclone(){
-	git clone git@github.com:ipartnr8/$1
-}
 alias s='git status'
 alias b='git branch'
 alias a='git add .'
@@ -40,9 +31,15 @@ c(){
 	git commit -m "$1"
 }
 
-#trapeze aliases
-alias gui='cd ~/source/trapeze-gui'
-alias payments='cd ~/git/source/circus-trapeze-payments-gui'
+#gp aliases
+alias api='cd ~/code/toolkit-api'
+alias gui='cd ~/code/toolkit-ui'
+alias func='cd ~/code/toolkit-functions'
+alias common='cd ~/code/toolkit-common'
+alias apidev="api && npm run dev"
+alias guidev="gui && npm run serve"
 killonport(){
 	fuser -k -n tcp $1
 }
+
+alias okta="flatpak run com.okta.developer.CLI"
