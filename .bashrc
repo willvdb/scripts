@@ -147,6 +147,8 @@ load ~/scripts/prompt.sh
 # Load title
 load ~/scripts/title.sh
 
+#Load docker scripts
+
 # Add scripts to path
 PATH=$PATH':/sbin'
 PATH=$PATH':~/scripts'
