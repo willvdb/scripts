@@ -34,8 +34,8 @@ c(){
 #gp aliases
 alias api='cd ~/code/toolkit-api'
 alias gui='cd ~/code/toolkit-ui'
-alias func='cd ~/code/toolkit-functions'
-alias common='cd ~/code/toolkit-common'
+alias fun='cd ~/code/toolkit-functions'
+alias com='cd ~/code/toolkit-common'
 alias apidev="api && npm run dev"
 alias guidev="gui && npm run serve"
 killonport(){
@@ -43,3 +43,8 @@ killonport(){
 }
 
 alias okta="flatpak run com.okta.developer.CLI"
+
+#ts aliases
+alias tsn="ts-node"
+alias tnode="ts-node"
+alias tsnode="ts-node"
