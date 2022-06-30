@@ -1,15 +1,5 @@
 
 buildApi() {
-  export DB_CONNECTION_STRING="" #put var in here
-
-  export ASB_CONNECTION_STRING="" #put var in here
-  export COMPANY_QUEUE="" #put var in here
-
-  export OKTA_CLIENTID="" #put var in here
-  export OKTA_ISSUER="" #put var in here
-  export OKTA_AUDIENCE="" #put var in here
-
-  export NPM_TOKEN="" #put var in here
 
   cd ~/code/toolkit-api
 
