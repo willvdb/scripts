@@ -125,6 +125,9 @@ load() {
   fi
 }
 
+#Load env vars DON'T COMMIT THESE
+load ~/scripts/env.sh
+
 # Load global definitions
 load /etc/bashrc
 
@@ -146,6 +149,7 @@ load ~/scripts/prompt.sh
 load ~/scripts/title.sh
 
 #Load docker scripts
+load ~/scripts/docker_scripts.sh
 
 # Add scripts to path
 PATH=$PATH':/sbin'
