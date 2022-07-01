@@ -42,11 +42,12 @@ build_prompt() {
 	## Segment Config ##
 	local LAST_NUMBER=$(ansi --yellow "\#")
 	local LAST_OUTCOME=""
-	local USER=$(ansi --green "$USER")
+	local USER=$(ansi --green --bold "$USER")
+	local HOSTNAME=$(ansi --magenta --bold --underline "$HOSTNAME")
 	local DIR=$(ansi --blue "\w")
 	local GIT_BRANCH=$(ansi --magenta $(git_branch))
 	local GIT_CHANGES=$(ansi --yellow $(git_changes))
-	local PROMPT=$(echo -e "\n>")
+	local PROMPT=$(echo -e "$")
 
 	## Determine Command Outcome ##
 	if [[ $? == 0 ]]; then
@@ -64,7 +65,7 @@ build_prompt() {
 	#echo -e $PROMPT
 
 	# set the PS1 variable; use this if you're not enabling PROMPT_COMMAND
-	PS1=$(wrap $LAST_NUMBER$SEPARATOR$LAST_OUTCOME)$(wrap $USER)$(wrap $DIR)$(wrap $GIT_BRANCH)$(wrap $GIT_CHANGES)$PROMPT
+	PS1=$(wrap $LAST_NUMBER$SEPARATOR$LAST_OUTCOME)$(wrap $USER@$HOSTNAME)$(wrap $DIR)$(wrap $GIT_BRANCH)$(wrap $GIT_CHANGES)$PROMPT
 }
 
 PROMPT_COMMAND='build_prompt'
