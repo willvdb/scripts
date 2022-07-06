@@ -3,6 +3,32 @@
   "$schema": "https://aka.ms/terminal-profiles-schema",
   "actions": [
     {
+      "command": {
+        "action": "moveFocus",
+        "direction": "up"
+      },
+      "keys": "alt+u"
+    },
+    {
+      "command": {
+        "action": "nextTab"
+      },
+      "keys": "ctrl+shift+right"
+    },
+    {
+      "command": {
+        "action": "nextTab"
+      },
+      "keys": "ctrl+shift+k"
+    },
+    {
+      "command": {
+        "action": "moveFocus",
+        "direction": "right"
+      },
+      "keys": "alt+k"
+    },
+    {
       "command": "unbound",
       "keys": "ctrl+tab"
     },
@@ -23,6 +49,10 @@
       "keys": "ctrl+left"
     },
     {
+      "command": "find",
+      "keys": "ctrl+shift+f"
+    },
+    {
       "command": {
         "action": "copy",
         "singleLine": false
@@ -31,10 +61,19 @@
     },
     {
       "command": {
-        "action": "moveFocus",
-        "direction": "up"
+        "action": "prevTab"
       },
-      "keys": "alt+u"
+      "keys": "ctrl+shift+left"
+    },
+    {
+      "command": {
+        "action": "prevTab"
+      },
+      "keys": "ctrl+shift+j"
+    },
+    {
+      "command": "paste",
+      "keys": "ctrl+v"
     },
     {
       "command": {
@@ -43,30 +82,17 @@
       "keys": "ctrl+shift+t"
     },
     {
-      "command": "paste",
-      "keys": "ctrl+v"
-    },
-    {
-      "command": "find",
-      "keys": "ctrl+shift+f"
+      "command": {
+        "action": "moveFocus",
+        "direction": "left"
+      },
+      "keys": "alt+j"
     },
     {
       "command": {
         "action": "globalSummon"
       },
       "keys": "f1"
-    },
-    {
-      "command": {
-        "action": "nextTab"
-      },
-      "keys": "ctrl+shift+right"
-    },
-    {
-      "command": {
-        "action": "nextTab"
-      },
-      "keys": "ctrl+shift+k"
     },
     {
       "command": {
@@ -89,32 +115,6 @@
         "direction": "down"
       },
       "keys": "alt+n"
-    },
-    {
-      "command": {
-        "action": "prevTab"
-      },
-      "keys": "ctrl+shift+left"
-    },
-    {
-      "command": {
-        "action": "prevTab"
-      },
-      "keys": "ctrl+shift+j"
-    },
-    {
-      "command": {
-        "action": "moveFocus",
-        "direction": "right"
-      },
-      "keys": "alt+k"
-    },
-    {
-      "command": {
-        "action": "moveFocus",
-        "direction": "left"
-      },
-      "keys": "alt+j"
     }
   ],
   "copyFormatting": "none",
@@ -373,7 +373,7 @@
       "brightBlue": "#3B78FF",
       "brightCyan": "#61D6D6",
       "brightGreen": "#16C60C",
-      "brightPurple": "#8f50b9",
+      "brightPurple": "#8E6BEA",
       "brightRed": "#E74856",
       "brightWhite": "#F2F2F2",
       "brightYellow": "#F9F1A5",
