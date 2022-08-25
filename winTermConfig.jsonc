@@ -90,7 +90,9 @@
     },
     {
       "command": {
-        "action": "globalSummon"
+        "action": "globalSummon",
+        "desktop": "toCurrent",
+        "monitor": "any"
       },
       "keys": "f1"
     },
