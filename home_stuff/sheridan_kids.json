@@ -1,0 +1,33 @@
+[{
+    "name": "Evelyn",
+    "block": ["Evelyn", "Natalie", "Linea", "Marcus"]
+  },
+  {
+    "name": "Asher",
+    "block": ["Asher", "Maia", "Alena", "Isaac"]
+  },
+  {
+    "name": "Marcus",
+    "block": ["Marcus", "Isaac", "Natalie"]
+  },
+  {
+    "name": "Maia",
+    "block": ["Maia", "Asher", "Alena", "Evelyn"]
+  },
+  {
+    "name": "Natalie",
+    "block": ["Natalie", "Evelyn", "Linea", "Asher"]
+  },
+  {
+    "name": "Isaac",
+    "block": ["Isaac", "Marcus", "Maia"]
+  },
+  {
+    "name": "Alena",
+    "block": ["Asher", "Maia"]
+  },
+  {
+    "name": "Linea",
+    "block": ["Evelyn", "Natalie"]
+  }
+]
