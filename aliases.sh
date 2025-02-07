@@ -35,9 +35,9 @@ c(){
 alias api='cd ~/code/toolkit-api'
 alias gui='cd ~/code/toolkit-ui'
 alias fun='cd ~/code/toolkit-functions'
-alias com='cd ~/code/toolkit-common'
-alias apidev="api && npm run dev"
-alias guidev="gui && npm run serve"
+alias com='cd ~/code/toolkit-models'
+alias apidev="api && npm run start:dev"
+alias guidev="gui && npm run dev"
 killonport(){
 	fuser -k -n tcp $1
 }
