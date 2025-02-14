@@ -1,3 +1,5 @@
 windowtoggle
 __pycache__
 env.sh
+env_dev.sh
+env_prod.sh
