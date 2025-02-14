@@ -16,7 +16,10 @@ buildApi() {
   --build-arg DATA_LAKE_SERVER=$DATA_LAKE_SERVER \
   --build-arg OKTA_CLIENTID=$OKTA_CLIENTID \
   --build-arg OKTA_ISSUER=$OKTA_ISSUER \
-  --build-arg OKTA_AUDIENCE=$OKTA_AUDIENCE .
+  --build-arg OKTA_AUDIENCE=$OKTA_AUDIENCE \
+  --build-arg DATA_LAKE_USERNAME=$DATA_LAKE_USERNAME \
+  --build-arg DATA_LAKE_PASSWORD=$DATA_LAKE_PASSWORD \
+  --build-arg DATA_LAKE_SERVER=$DATA_LAKE_SERVER .
 }
 
 #you'll need to be signed into azure via the cli for this to work
@@ -49,7 +52,10 @@ buildDevApi() {
   --build-arg DATA_LAKE_SERVER=$DATA_LAKE_SERVER \
   --build-arg OKTA_CLIENTID=$OKTA_CLIENTID \
   --build-arg OKTA_ISSUER=$OKTA_ISSUER \
-  --build-arg OKTA_AUDIENCE=$OKTA_AUDIENCE .
+  --build-arg OKTA_AUDIENCE=$OKTA_AUDIENCE \
+  --build-arg DATA_LAKE_USERNAME=$DATA_LAKE_USERNAME \
+  --build-arg DATA_LAKE_PASSWORD=$DATA_LAKE_PASSWORD \
+  --build-arg DATA_LAKE_SERVER=$DATA_LAKE_SERVER .
 }
 
 #you'll need to be signed into azure via the cli for this to work

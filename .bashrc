@@ -157,6 +157,10 @@ PATH=$PATH':~/scripts'
 PATH=$PATH':~/scripts/binaries'
 PATH=$PATH':~/.ip-scripts'
 PATH=$PATH':/usr/local/nvm/v5.4.1/bin'
+PATH=$PATH':~/.local/bin'
+PATH=$PATH'/usr/local/lib64/'
+export DENO_INSTALL="/home/will/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Suppress nvm errors...
 unset NPM_CONFIG_PREFIX
