@@ -18,47 +18,67 @@ build_prompt() {
 		fi
 	}
 
+	# Helper function to wrap ANSI codes for PS1
+	ps1_escape() {
+		echo "\[$1\]"
+	}
+
 	wrap() {
-		if [ ${#1} -gt 10 ]; then
-			local SEGMENT=$(echo -en "$LEFT_BRACKET$@$RIGHT_BRACKET")
-			echo -en `ansi --bg-black "$SEGMENT"`
+		# Only wrap if there's actual content (not just empty or whitespace)
+		local CONTENT="$@"
+		if [ ! -z "$CONTENT" ] && [ ${#CONTENT} -gt 0 ]; then
+			local SEGMENT=$(echo -en "$LEFT_BRACKET$CONTENT$RIGHT_BRACKET")
+			echo -en $(ps1_escape "`ansi --bg-black "$SEGMENT"`")
 		fi
 	}
 
 	## Icon Config ##
-	local LEFT_BRACKET=`ansi --yellow $(echo -e "[")`
-	local RIGHT_BRACKET=`ansi --yellow $(echo -e "]")`
-	local SEPARATOR=`ansi --yellow $(echo -e ":")`
-	local BRANCH=`ansi --bold $(echo -e "\u2387\u2003")`
-	local PROFILE=`ansi --bold $(echo -e "\U0001F464\u2003")`
-	local DIRECTORY=`ansi --bold $(echo -e "\U0001F5C1\u3000")`
-	local SUCCESS=`ansi --bold $(echo -e "\u2713")`
-	local FAIL=`ansi --bold $(echo -e "\u2717")`
+	local LEFT_BRACKET=$(ps1_escape "`ansi --yellow $(echo -e "[")`")
+	local RIGHT_BRACKET=$(ps1_escape "`ansi --yellow $(echo -e "]")`")
+	local SEPARATOR=$(ps1_escape "`ansi --yellow $(echo -e ":")`")
+	local BRANCH=$(ps1_escape "`ansi --bold $(echo -e "\u2387\u2003")`")
+	local PROFILE=$(ps1_escape "`ansi --bold $(echo -e "\U0001F464\u2003")`")
+	local DIRECTORY=$(ps1_escape "`ansi --bold $(echo -e "\U0001F5C1\u3000")`")
+	local SUCCESS=$(ps1_escape "`ansi --bold $(echo -e "\u2713")`")
+	local FAIL=$(ps1_escape "`ansi --bold $(echo -e "\u2717")`")
 	## Adding a color to the arrow will cause scrollback to break... ##
 	local ARROW=$(echo -e "\u27a4")
 	local ARROW=$(echo -e "\U0001f896")
 	local ARROW=$(echo -e "\U0001f836")
 
 	## Segment Config ##
-	local LAST_NUMBER=$(ansi --yellow "\#")
+	local LAST_NUMBER=$(ps1_escape "$(ansi --yellow "\#")")
 	local LAST_OUTCOME=""
-	local USER=$(ansi --green --bold "$USER")
-	local HOSTNAME=$(ansi --magenta --bold --underline "$HOSTNAME")
-	local DIR=$(ansi --blue "\w")
-	local GIT_BRANCH=$(ansi --magenta $(git_branch))
-	local GIT_CHANGES=$(ansi --yellow $(git_changes))
+	local USER=$(ps1_escape "$(ansi --green --bold "$USER")")
+	local HOSTNAME=$(ps1_escape "$(ansi --magenta --bold --underline "$HOSTNAME")")
+	local DIR=$(ps1_escape "$(ansi --blue "\w")")
+	
+	# Only get git info if we're in a git repository
+	local GIT_BRANCH_TEXT=$(git_branch)
+	local GIT_CHANGES_TEXT=$(git_changes)
+	local GIT_BRANCH=""
+	local GIT_CHANGES=""
+	
+	if [ ! -z "$GIT_BRANCH_TEXT" ]; then
+		GIT_BRANCH=$(ps1_escape "$(ansi --magenta "$GIT_BRANCH_TEXT")")
+	fi
+	
+	if [ ! -z "$GIT_CHANGES_TEXT" ]; then
+		GIT_CHANGES=$(ps1_escape "$(ansi --yellow "$GIT_CHANGES_TEXT")")
+	fi
+	
 	local PROMPT=$(echo -e "$")
 
 	## Determine Command Outcome ##
 	if [[ $? == 0 ]]; then
-		LAST_OUTCOME=$(ansi --green $SUCCESS)
+		LAST_OUTCOME=$(ps1_escape "$(ansi --green $SUCCESS)")
 	else
-		LAST_OUTCOME=$(ansi --red $FAIL)
+		LAST_OUTCOME=$(ps1_escape "$(ansi --red $FAIL)")
 	fi
 
 	## Highlight Root ##
 	if [ `whoami` == 'root' ]; then
-		USER=`ansi --red "$USER"`
+		USER=$(ps1_escape "`ansi --red "$USER"`")
 	fi
 
 	# print the prompt; use this if you're enabling PROMPT_COMMAND
